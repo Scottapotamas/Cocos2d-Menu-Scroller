@@ -155,7 +155,7 @@ enum
 
 -(void) moveToPage:(int)page
 {
-	id changePage = [CCMoveTo actionWithDuration:0.3 position:ccp(-((page-1)*scrollWidth_),0)];
+	id changePage = [CCMoveTo actionWithDuration:0.5 position:ccp(-((page-1)*scrollWidth_),0)];
 	[self runAction:changePage];
 	currentScreen_ = page;
 }
@@ -176,7 +176,7 @@ enum
 			}
 			else 
 			{
-				CCLOGERROR(@"CCScrollLayer#claimTouch: %@ is already claimed!", touch);
+				CCLOGERROR(@"CCScrollLayer#claimTouch: %@ is already claimed!", aTouch);
 			}
 			return;
 		}
