@@ -27,7 +27,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
 #ifndef __MAC_OS_X_VERSION_MAX_ALLOWED
@@ -81,8 +80,8 @@
 @property(readonly) int totalScreens;
 @property(readonly) int currentScreen;
 
-+(id) nodeWithLayers:(NSArray *)layers widthOffset: (int) widthOffset; 
--(id) initWithLayers:(NSArray *)layers widthOffset: (int) widthOffset;
++(id) nodeWithLayers:(NSArray *)layers widthOffset: (int) widthOffset pageIndicator:(bool) pageIndicator; 
+-(id) initWithLayers:(NSArray *)layers widthOffset: (int) widthOffset pageIndicator:(bool) pageIndicator;
 
 @end
 
