@@ -62,13 +62,12 @@ enum
 @synthesize currentScreen = currentScreen_;
 @synthesize showPagesIndicator = showPagesIndicator_;
 
-+(id) nodeWithLayers:(NSArray *)layers widthOffset: (int) widthOffset
++(id) nodeWithLayers:(NSArray *)layers widthOffset: (int) widthOffset pageIndicator:(bool)pageIndicator
 {
-	return [[[self alloc] initWithLayers: layers widthOffset:widthOffset] autorelease];
+	return [[[self alloc] initWithLayers: layers widthOffset:widthOffset pageIndicator:pageIndicator] autorelease];
 }
 
--(id) initWithLayers:(NSArray *)layers widthOffset: (int) widthOffset
-{
+-(id) initWithLayers:(NSArray *)layers widthOffset: (int) widthOffset pageIndicator:(bool) pageIndicator {
 	if ( (self = [super init]) )
 	{
 		NSAssert([layers count], @"CCScrollLayer#initWithLayers:widthOffset: you must provide at least one layer!");
@@ -77,11 +76,11 @@ enum
 		self.isTouchEnabled = YES;
 		
 		// Set default minimum touch length to scroll.
-		self.minimumTouchLengthToSlide = 30.0f;
+		self.minimumTouchLengthToSlide = 20.0f; //30.0
 		self.minimumTouchLengthToChangePage = 100.0f;
 		
 		// Show indicator by default.
-		self.showPagesIndicator = YES;
+		self.showPagesIndicator = pageIndicator;
 		
 		// Set up the starting variables
 		currentScreen_ = 1;
@@ -134,7 +133,7 @@ enum
 		// Set GL Values
 		glEnable(GL_POINT_SMOOTH);
 		glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-		glPointSize(6.0f * CC_CONTENT_SCALE_FACTOR());
+		glPointSize(4.0f * CC_CONTENT_SCALE_FACTOR());
 		
 		// Draw Gray Points
 		glColor4ub(0x96,0x96,0x96,0xFF);
@@ -155,7 +154,7 @@ enum
 
 -(void) moveToPage:(int)page
 {
-	id changePage = [CCMoveTo actionWithDuration:0.5 position:ccp(-((page-1)*scrollWidth_),0)];
+	id changePage = [CCMoveTo actionWithDuration:0.25 position:ccp(-((page-1)*scrollWidth_),0)];
 	[self runAction:changePage];
 	currentScreen_ = page;
 }
@@ -176,7 +175,7 @@ enum
 			}
 			else 
 			{
-				CCLOGERROR(@"CCScrollLayer#claimTouch: %@ is already claimed!", aTouch);
+				CCLOG(@"CCScrollLayer#claimTouch: %@ is already claimed!", aTouch);
 			}
 			return;
 		}
